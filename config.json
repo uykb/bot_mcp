@@ -1,0 +1,16 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 50051
+  },
+  "bybit": {
+    "baseUrl": "https://api.bybit.com",
+    "apiKey": "您的API密钥",
+    "apiSecret": "您的API密钥",
+    "debug": false
+  },
+  "logger": {
+    "level": "info",
+    "output": "stdout"
+  }
+}

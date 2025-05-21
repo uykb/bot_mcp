@@ -1,0 +1,33 @@
+# Git相关文件
+.git
+.gitignore
+
+# Docker相关文件
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# 环境变量文件
+.env*
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件和构建产物
+*.tmp
+*.swp
+*.swo
+/tmp
+
+# 测试文件
+test/
+
+# 文档文件
+*.md
+DOCKER.md
+USAGE.md
+README.md
+
+# 其他不需要的文件
+.DS_Store

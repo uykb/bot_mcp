@@ -1,0 +1,214 @@
+syntax = "proto3";
+
+package bybit;
+
+option go_package = "github.com/bybit-mcp/internal/api";
+
+// Bybit MCP服务定义
+service BybitMCPService {
+  // 市场数据API
+  rpc GetKline (KlineRequest) returns (MCPResponse);
+  rpc GetOrderbook (OrderbookRequest) returns (MCPResponse);
+  rpc GetTickers (TickersRequest) returns (MCPResponse);
+  rpc GetRecentTrades (RecentTradesRequest) returns (MCPResponse);
+  
+  // 订单管理API
+  rpc CreateOrder (CreateOrderRequest) returns (MCPResponse);
+  rpc CancelOrder (CancelOrderRequest) returns (MCPResponse);
+  rpc GetOrders (GetOrdersRequest) returns (MCPResponse);
+  rpc GetOrderHistory (GetOrderHistoryRequest) returns (MCPResponse);
+  rpc CancelAllOrders (CancelAllOrdersRequest) returns (MCPResponse);
+  
+  // 仓位管理API
+  rpc GetPositions (GetPositionsRequest) returns (MCPResponse);
+  rpc SetLeverage (SetLeverageRequest) returns (MCPResponse);
+  rpc SetTpSlMode (SetTpSlModeRequest) returns (MCPResponse);
+  rpc SetRiskLimit (SetRiskLimitRequest) returns (MCPResponse);
+  
+  // 账户管理API
+  rpc GetWalletBalance (GetWalletBalanceRequest) returns (MCPResponse);
+  rpc GetAccountInfo (GetAccountInfoRequest) returns (MCPResponse);
+  rpc GetFeeRate (GetFeeRateRequest) returns (MCPResponse);
+  rpc GetAccountMode (GetAccountModeRequest) returns (MCPResponse);
+  rpc SetAccountMode (SetAccountModeRequest) returns (MCPResponse);
+  
+  // 资产管理API
+  rpc GetAssetInfo (GetAssetInfoRequest) returns (MCPResponse);
+  rpc AssetTransfer (AssetTransferRequest) returns (MCPResponse);
+  rpc GetTransferHistory (GetTransferHistoryRequest) returns (MCPResponse);
+  rpc GetDepositHistory (GetDepositHistoryRequest) returns (MCPResponse);
+  rpc GetWithdrawalHistory (GetWithdrawalHistoryRequest) returns (MCPResponse);
+}
+
+// 通用响应
+message MCPResponse {
+  string request_id = 1;
+  int32 code = 2;
+  string message = 3;
+  bytes data = 4;
+}
+
+// 市场数据请求
+
+message KlineRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  string interval = 4;
+  int32 limit = 5;
+}
+
+message OrderbookRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  int32 limit = 4;
+}
+
+message TickersRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+}
+
+message RecentTradesRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  int32 limit = 4;
+}
+
+// 订单管理请求
+
+message CreateOrderRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  string side = 4;
+  string order_type = 5;
+  double qty = 6;
+  double price = 7;
+  string time_in_force = 8;
+  string order_link_id = 9;
+  double take_profit = 10;
+  double stop_loss = 11;
+  bool reduce_only = 12;
+  bool close_on_trigger = 13;
+}
+
+message CancelOrderRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  string order_id = 4;
+}
+
+message GetOrdersRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  int32 limit = 4;
+}
+
+message GetOrderHistoryRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  int32 limit = 4;
+}
+
+message CancelAllOrdersRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  string settle_coin = 4;
+}
+
+// 仓位管理请求
+
+message GetPositionsRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+}
+
+message SetLeverageRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  double leverage = 4;
+}
+
+message SetTpSlModeRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  string tp_sl_mode = 4;
+}
+
+message SetRiskLimitRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+  int32 risk_id = 4;
+}
+
+// 账户管理请求
+
+message GetWalletBalanceRequest {
+  string request_id = 1;
+  string account_type = 2;
+  string coin = 3;
+}
+
+message GetAccountInfoRequest {
+  string request_id = 1;
+}
+
+message GetFeeRateRequest {
+  string request_id = 1;
+  string category = 2;
+  string symbol = 3;
+}
+
+message GetAccountModeRequest {
+  string request_id = 1;
+}
+
+message SetAccountModeRequest {
+  string request_id = 1;
+  string account_mode = 2;
+}
+
+// 资产管理请求
+
+message GetAssetInfoRequest {
+  string request_id = 1;
+  string account_type = 2;
+}
+
+message AssetTransferRequest {
+  string request_id = 1;
+  string from_account_type = 2;
+  string to_account_type = 3;
+  string coin = 4;
+  double amount = 5;
+}
+
+message GetTransferHistoryRequest {
+  string request_id = 1;
+  string coin = 2;
+  int32 limit = 3;
+}
+
+message GetDepositHistoryRequest {
+  string request_id = 1;
+  string coin = 2;
+  int32 limit = 3;
+}
+
+message GetWithdrawalHistoryRequest {
+  string request_id = 1;
+  string coin = 2;
+  int32 limit = 3;
+}
