@@ -4,11 +4,11 @@ FROM golang:1.20-alpine AS builder
 # 设置工作目录
 WORKDIR /app
 
-# 复制go.mod和go.sum文件
+# 复制go.mod文件
 COPY go.mod ./
 
-# 下载依赖
-RUN go mod download
+# 初始化go.mod并下载依赖
+RUN go mod tidy && go mod download
 
 # 复制源代码
 COPY . .
