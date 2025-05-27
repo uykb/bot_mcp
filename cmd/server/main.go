@@ -63,12 +63,12 @@ func main() {
 	api.RegisterBybitMCPServiceServer(server, mcpServer)
 
 	// 启动服务器
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", config.Port))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Server.Port))
 	if err != nil {
 		log.Fatalf("无法监听端口: %v", err)
 	}
 
-	log.Printf("Bybit MCP服务启动，监听端口: %d", config.Port)
+	log.Printf("Bybit MCP服务启动，监听端口: %d", cfg.Server.Port)
 
 	// 在后台启动服务
 	go func() {

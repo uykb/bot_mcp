@@ -80,8 +80,8 @@ func (c *Client) generateSignature(params map[string]string, timestamp int64) st
 	return hex.EncodeToString(h.Sum(nil))
 }
 
-// 发送请求
-func (c *Client) sendRequest(method, endpoint string, params map[string]string, auth bool) ([]byte, error) {
+// SendRequest 发送请求
+func (c *Client) SendRequest(method, endpoint string, params map[string]string, auth bool) ([]byte, error) {
 	// 构建URL
 	apiURL := fmt.Sprintf("%s/%s/%s", c.BaseURL, APIVersion, endpoint)
 
@@ -161,7 +161,7 @@ func (c *Client) GetKline(category, symbol, interval string, limit int) ([]byte,
 		params["limit"] = strconv.Itoa(limit)
 	}
 
-	return c.sendRequest("GET", "market/kline", params, false)
+	return c.SendRequest("GET", "market/kline", params, false)
 }
 
 // GetOrderbook 获取订单簿
@@ -175,7 +175,7 @@ func (c *Client) GetOrderbook(category, symbol string, limit int) ([]byte, error
 		params["limit"] = strconv.Itoa(limit)
 	}
 
-	return c.sendRequest("GET", "market/orderbook", params, false)
+	return c.SendRequest("GET", "market/orderbook", params, false)
 }
 
 // GetTickers 获取行情数据
@@ -188,7 +188,7 @@ func (c *Client) GetTickers(category, symbol string) ([]byte, error) {
 		params["symbol"] = symbol
 	}
 
-	return c.sendRequest("GET", "market/tickers", params, false)
+	return c.SendRequest("GET", "market/tickers", params, false)
 }
 
 // 订单API
@@ -211,7 +211,7 @@ func (c *Client) CreateOrder(category, symbol, side, orderType string, qty float
 		params["timeInForce"] = timeInForce
 	}
 
-	return c.sendRequest("POST", "order/create", params, true)
+	return c.SendRequest("POST", "order/create", params, true)
 }
 
 // CancelOrder 取消订单
@@ -225,7 +225,7 @@ func (c *Client) CancelOrder(category, symbol, orderId string) ([]byte, error) {
 		params["orderId"] = orderId
 	}
 
-	return c.sendRequest("POST", "order/cancel", params, true)
+	return c.SendRequest("POST", "order/cancel", params, true)
 }
 
 // GetOrders 获取订单列表
@@ -242,7 +242,7 @@ func (c *Client) GetOrders(category, symbol string, limit int) ([]byte, error) {
 		params["limit"] = strconv.Itoa(limit)
 	}
 
-	return c.sendRequest("GET", "order/history", params, true)
+	return c.SendRequest("GET", "order/history", params, true)
 }
 
 // 仓位API
@@ -257,7 +257,7 @@ func (c *Client) GetPositions(category, symbol string) ([]byte, error) {
 		params["symbol"] = symbol
 	}
 
-	return c.sendRequest("GET", "position/list", params, true)
+	return c.SendRequest("GET", "position/list", params, true)
 }
 
 // 账户API
@@ -272,7 +272,7 @@ func (c *Client) GetWalletBalance(accountType, coin string) ([]byte, error) {
 		params["coin"] = coin
 	}
 
-	return c.sendRequest("GET", "account/wallet-balance", params, true)
+	return c.SendRequest("GET", "account/wallet-balance", params, true)
 }
 
 // 资产API
@@ -285,5 +285,5 @@ func (c *Client) GetAssetInfo(accountType string) ([]byte, error) {
 		params["accountType"] = accountType
 	}
 
-	return c.sendRequest("GET", "asset/transfer/query-asset-info", params, true)
+	return c.SendRequest("GET", "asset/transfer/query-asset-info", params, true)
 }

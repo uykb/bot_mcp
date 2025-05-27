@@ -72,7 +72,7 @@ func (s *bybitService) GetRecentTrades(ctx context.Context, category, symbol str
 		params["limit"] = fmt.Sprintf("%d", limit)
 	}
 
-	data, err := s.client.sendRequest("GET", "market/recent-trade", params, false)
+	data, err := s.client.SendRequest("GET", "market/recent-trade", params, false)
 	if err != nil {
 		return nil, err
 	}
